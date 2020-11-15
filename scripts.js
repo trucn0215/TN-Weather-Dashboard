@@ -7,10 +7,12 @@ var humidityEl = $("#humidity");
 var windspeedEl = $("#windSpeed");
 var uvIndexEl = $("#uvIndex");
 
-
-// var cityName = "seattle"
 var apiKey = "995e326b80d10383e267b0aff15bf8af";
 
+// Current date
+var todayDate = moment().format("L");
+
+// Click Event.
 searchBtnEl.on("click", function () {
     var cityName = citySearchEl.val().toLowerCase();
 
@@ -49,12 +51,19 @@ function makeWeatherRequest(cityName) {
 
 // Function to display the TODAY data-time  weather
 function currentWeather(response){
+    var cityValue = response.name;
+    var iconValue = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png").addClass("bg-primary rounded");
     var tempValue = (response.main.temp -273.15) * 1.8 +32;
     var humidityValue = response.main.humidity;
     var windSpeedValue = response.wind.speed;
 
+    console.log();
+    
+    cityEl.text((cityValue) + " (" + todayDate + " )");
+    cityEl.append(iconValue);
     temperatureEl.text("Temperature: " + tempValue.toFixed(1) + " °F");
-    console.log(temperatureEl);
+    humidityEl.text("Humidity: " + humidityValue);
+    windspeedEl.text("Wind Speed: " + windSpeedValue);
 }
 
 // function makeOneCallRequest(lat, lng) {
