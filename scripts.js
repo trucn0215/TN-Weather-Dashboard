@@ -27,7 +27,7 @@ function makeWeatherRequest(cityName) {
         url: queryUrl,
         method: "GET"
     }).then(function (response) {
-        console.log(response)
+        // console.log(response)
 
         currentWeather(response);
     })
@@ -49,7 +49,7 @@ function currentWeather(response) {
     cityEl.text((cityValue) + " (" + todayDate + " ) ");
     cityEl.append(iconValue);
     temperatureEl.text("Temperature: " + tempValue.toFixed(1) + " °F");
-    humidityEl.text("Humidity: " + humidityValue);
+    humidityEl.text("Humidity: " + humidityValue + "%");
     windspeedEl.text("Wind Speed: " + windSpeedValue);
 
     // Get LAT and LON values and pass to uvIndexWeather() function
