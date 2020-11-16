@@ -45,22 +45,20 @@ function currentWeather(response) {
     var latValue = response.coord.lat;
     var lonValue = response.coord.lon;
 
-    // console.log(latValue);
-    // console.log(lonValue);
-
+    // Display weather data browser by append to html
     cityEl.text((cityValue) + " (" + todayDate + " ) ");
     cityEl.append(iconValue);
     temperatureEl.text("Temperature: " + tempValue.toFixed(1) + " °F");
     humidityEl.text("Humidity: " + humidityValue);
     windspeedEl.text("Wind Speed: " + windSpeedValue);
 
+    // Get LAT and LON values and pass to uvIndexWeather() function
     uvIndexWeather(latValue, lonValue);
-
-
 }
 
+// Function to display UV Index
 function uvIndexWeather(latValue, lonValue) {
-    // Get UV INDEX value
+    // Get UV INDEX value from ajax
     var uvIndexQueryUrl = "http://api.openweathermap.org/data/2.5/uvi?lat=" + latValue + "&lon=" + lonValue + "&appid=" + apiKey;
     $.ajax({
         url: uvIndexQueryUrl,
@@ -69,15 +67,3 @@ function uvIndexWeather(latValue, lonValue) {
         uvIndexEl.text("UV Index: " + uvData.value);
     });
 }
-
-// function makeOneCallRequest(lat, lng) {
-    // NEXT, we need to build the URL for the first API request
-
-    // Example: https://api.openweathermap.org ..../onecall?lat=[LAT]&lon=[LNG]&appid=....
-
-    // NEXT, make the request to the URL with jQuery ajax
-
-    // $.ajax(queryUrl).then(function (response) {
-        // Finish rendering data to the html
-    // });
-// }
