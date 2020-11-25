@@ -44,9 +44,15 @@ function saveToLocalstorage(searchedCitiesArray) {
 // Get city from localStorage
 function getFromLocalstorage() {
     var storedCity = JSON.parse(localStorage.getItem("searchedCity"));
-    console.log(storedCity);
+    // console.log(storedCity);
     renderSearchedCities(storedCity);
 }
+
+
+
+
+
+
 
 // GET data from Openweathermap with ajax
 function makeWeatherRequest(cityName) {
