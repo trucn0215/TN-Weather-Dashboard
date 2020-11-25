@@ -12,13 +12,27 @@ var cityName;
 
 // Current date
 var todayDate = moment().format("L");
+var searchedCitiesArray = []; //put all searched cities into this array
 
 // Click Event.
 searchBtnEl.on("click", function () {
-    cityName = citySearchEl.val().toLowerCase();
+    cityName = citySearchEl.val().toLowerCase(); //Getting value from the input
+
+    // Save to localStorage 
+    searchedCitiesArray.push(cityName);
+
+    saveToLocalstorage(searchedCitiesArray);
     makeWeatherRequest(cityName);
-    // forcastWeather();
 })
+
+// Save to localStorage
+function saveToLocalstorage(searchedCitiesArray){
+    localStorage.setItem("searchedCity", JSON.stringify(searchedCitiesArray));
+}
+
+
+// Get city from localStorage
+// function getFromLocalstorage()
 
 // GET data from Openweathermap with ajax
 function makeWeatherRequest(cityName) {
@@ -99,3 +113,5 @@ function forecastWeather(latValue, lonValue) {
         }
     })
 }
+
+// 
