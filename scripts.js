@@ -18,21 +18,23 @@ var searchedCitiesArray = []; //put all searched cities into this array
 searchBtnEl.on("click", function () {
     cityName = citySearchEl.val().toLowerCase(); //Getting value from the input
 
-    // Save to localStorage 
+    // Pushing searched Cities into `searchedCitiesArray`
     searchedCitiesArray.push(cityName);
+    saveToLocalstorage(searchedCitiesArray); // call the `searchedCitiesArray` to function saveToLocalstorage
 
-    saveToLocalstorage(searchedCitiesArray);
     makeWeatherRequest(cityName);
 })
 
 // Save to localStorage
-function saveToLocalstorage(searchedCitiesArray){
+function saveToLocalstorage(searchedCitiesArray) {
     localStorage.setItem("searchedCity", JSON.stringify(searchedCitiesArray));
 }
 
-
 // Get city from localStorage
-// function getFromLocalstorage()
+// function getFromLocalstorage() {
+//     var storedCity = JSON.parse(localStorage.getItem("searchedCity"));
+//     console.log(storedCity);
+// }
 
 // GET data from Openweathermap with ajax
 function makeWeatherRequest(cityName) {
@@ -101,15 +103,15 @@ function forecastWeather(latValue, lonValue) {
             $("#date" + [i]).text(moment.unix(fiveDay.daily[i - 1].dt).format("L"));
 
             // Getting the icon for each date forecast and display
-            $("#imgDate" +[i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i-1].weather[0].icon + ".png").addClass("bg-primary rounded");
+            $("#imgDate" + [i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i - 1].weather[0].icon + ".png").addClass("bg-primary rounded");
 
             // Getting the TEMP for each date and display
-            var maxTemp = fiveDay.daily[i-1].temp.max;
-            var minTemp = fiveDay.daily[i-1].temp.min;
-            $("#tempDate"+[i]).text(("Temp: ") + ((((maxTemp+minTemp)/2)- 273.15) * 1.8 + 32).toFixed(1));
+            var maxTemp = fiveDay.daily[i - 1].temp.max;
+            var minTemp = fiveDay.daily[i - 1].temp.min;
+            $("#tempDate" + [i]).text(("Temp: ") + ((((maxTemp + minTemp) / 2) - 273.15) * 1.8 + 32).toFixed(1));
 
             // Getting the Humidity for each date and display
-            $("#humidityDate" + [i]).text("Humidity: " + fiveDay.daily[i-1].humidity);
+            $("#humidityDate" + [i]).text("Humidity: " + fiveDay.daily[i - 1].humidity);
         }
     })
 }

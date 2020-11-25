@@ -18,6 +18,10 @@
     margin: 5px 0px 0px 0;
 }
 
+#searchedCities button{
+    width: 16rem;
+}
+
 @media screen and (max-width: 770px) {
     .forecastBlock {
         flex-direction: column;
