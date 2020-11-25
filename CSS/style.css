@@ -7,3 +7,21 @@
     font-size: 23px;
     font-weight: bold;
 }
+
+#blockDate1 p, 
+#blockDate2 p,
+#blockDate3 p,
+#blockDate4 p,
+#blockDate5 p {
+    font-size: 14px;
+    color: white;
+    margin: 5px 0px 0px 0;
+}
+
+@media screen and (max-width: 770px) {
+    .forecastBlock {
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}

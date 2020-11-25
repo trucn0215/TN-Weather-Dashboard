@@ -82,18 +82,20 @@ function forecastWeather(latValue, lonValue) {
         var i = fiveDay.daily.length
 
         for (var i = 1; i < 6; i++) {
-            // console.log(i);
+
             // Getting the date for each day forecast
-            var eachDate = moment.unix(fiveDay.daily[i - 1].dt).format("L");
-            $("#date" + [i]).text(eachDate);
+            $("#date" + [i]).text(moment.unix(fiveDay.daily[i - 1].dt).format("L"));
 
             // Getting the icon for each date forecast and display
             $("#imgDate" +[i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i-1].weather[0].icon + ".png").addClass("bg-primary rounded");
 
             // Getting the TEMP for each date and display
+            var maxTemp = fiveDay.daily[i-1].temp.max;
+            var minTemp = fiveDay.daily[i-1].temp.min;
+            $("#tempDate"+[i]).text(("Temp: ") + ((((maxTemp+minTemp)/2)- 273.15) * 1.8 + 32).toFixed(1));
 
             // Getting the Humidity for each date and display
-
+            $("#humidityDate" + [i]).text("Humidity: " + fiveDay.daily[i-1].humidity);
         }
     })
 }
