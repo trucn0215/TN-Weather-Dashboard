@@ -14,6 +14,9 @@ var cityName;
 var todayDate = moment().format("L");
 var searchedCitiesArray = []; //put all searched cities into this array
 
+getFromLocalstorage();
+
+
 // Click Event.
 searchBtnEl.on("click", function () {
     cityName = citySearchEl.val().toLowerCase(); //Getting value from the input
@@ -21,9 +24,17 @@ searchBtnEl.on("click", function () {
     // Pushing searched Cities into `searchedCitiesArray`
     searchedCitiesArray.push(cityName);
     saveToLocalstorage(searchedCitiesArray); // call the `searchedCitiesArray` to function saveToLocalstorage
-
+    renderSearchedCities();
     makeWeatherRequest(cityName);
 })
+
+//render cities
+function renderSearchedCities(storedCity){
+    for (var i=0; i < storedCity.length; i++){
+        var listCities = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").text(storedCity[i]);
+        $("#searchedCities").append(listCities);
+    }
+}
 
 // Save to localStorage
 function saveToLocalstorage(searchedCitiesArray) {
@@ -31,10 +42,11 @@ function saveToLocalstorage(searchedCitiesArray) {
 }
 
 // Get city from localStorage
-// function getFromLocalstorage() {
-//     var storedCity = JSON.parse(localStorage.getItem("searchedCity"));
-//     console.log(storedCity);
-// }
+function getFromLocalstorage() {
+    var storedCity = JSON.parse(localStorage.getItem("searchedCity"));
+    console.log(storedCity);
+    renderSearchedCities(storedCity);
+}
 
 // GET data from Openweathermap with ajax
 function makeWeatherRequest(cityName) {
@@ -93,7 +105,7 @@ function forecastWeather(latValue, lonValue) {
         url: fiveDayForcastQueryUrl,
         method: "GET"
     }).then(function (fiveDay) {
-        console.log(fiveDay);
+        // console.log(fiveDay);
 
         var i = fiveDay.daily.length
 
