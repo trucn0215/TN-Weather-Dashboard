@@ -17,7 +17,7 @@ var todayDate = moment().format("L");
 searchBtnEl.on("click", function () {
     cityName = citySearchEl.val().toLowerCase();
     makeWeatherRequest(cityName);
-    forcastWeather();
+    // forcastWeather();
 })
 
 // GET data from Openweathermap with ajax
@@ -29,7 +29,6 @@ function makeWeatherRequest(cityName) {
         method: "GET"
     }).then(function (response) {
         // console.log(response);
-
         currentWeather(response);
     })
 }
@@ -55,6 +54,7 @@ function currentWeather(response) {
 
     // Get LAT and LON values and pass to uvIndexWeather() function
     uvIndexWeather(latValue, lonValue);
+    forecastWeather(latValue, lonValue);
 }
 
 // Function to display UV Index
@@ -69,9 +69,9 @@ function uvIndexWeather(latValue, lonValue) {
     });
 }
 
-function forcastWeather() {
+function forecastWeather(latValue, lonValue) {
     // 5-day Forcast
-    var fiveDayForcastQueryUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey;
+    var fiveDayForcastQueryUrl = "http://api.openweathermap.org/data/2.5/onecall?lat=" + latValue + "&lon=" + lonValue + "&exclude=minutely,hourly&appid=" + apiKey;
     $.ajax({
         url: fiveDayForcastQueryUrl,
         method: "GET"
