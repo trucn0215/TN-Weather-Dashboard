@@ -69,13 +69,31 @@ function uvIndexWeather(latValue, lonValue) {
     });
 }
 
+// Forecast Function
 function forecastWeather(latValue, lonValue) {
-    // 5-day Forcast
+    // 5-day Forecast
     var fiveDayForcastQueryUrl = "http://api.openweathermap.org/data/2.5/onecall?lat=" + latValue + "&lon=" + lonValue + "&exclude=minutely,hourly&appid=" + apiKey;
     $.ajax({
         url: fiveDayForcastQueryUrl,
         method: "GET"
     }).then(function (fiveDay) {
         console.log(fiveDay);
+
+        var i = fiveDay.daily.length
+
+        for (var i = 1; i < 6; i++) {
+            // console.log(i);
+            // Getting the date for each day forecast
+            var eachDate = moment.unix(fiveDay.daily[i - 1].dt).format("L");
+            $("#date" + [i]).text(eachDate);
+
+            // Getting the icon for each date forecast and display
+            $("#imgDate" +[i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i-1].weather[0].icon + ".png").addClass("bg-primary rounded");
+
+            // Getting the TEMP for each date and display
+
+            // Getting the Humidity for each date and display
+
+        }
     })
 }
