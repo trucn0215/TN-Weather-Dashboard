@@ -18,9 +18,21 @@ var todayDate = moment().format("L");
 var storedCity = JSON.parse(localStorage.getItem("searchedCity"))||[];
 renderSearchedCities(storedCity);
 
+// Function to turn value to upperCase on the first letter of string
+function firstLetterCapital(str){
+    str = str.toLowerCase().split(' ');
+
+    for (var i = 0; i < str.length; i++) {
+
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+
+    return str.join(' ');
+}
+
 // Click Event.
 searchBtnEl.on("click", function () {
-    cityName = citySearchEl.val().toLowerCase(); //Getting value from the input
+    cityName = firstLetterCapital(citySearchEl.val()); //Getting value from the input and set it to lower case
 
     // remove hidden class to show the weather data
     $(".hidden").removeClass("hidden");
@@ -52,9 +64,9 @@ function renderSearchedCities(storedCity) {
 
 // Click one of the city in the listed searched previously to show weather.
 $("#savedCity").on("click", "button", function(){
-    var citySearched = $(this).data("city");
+    var cityBtnClick = $(this).data("city");
     $(".hidden").removeClass("hidden");
-    makeWeatherRequest(citySearched);
+    makeWeatherRequest(cityBtnClick);
 })
 
 // GET data from Openweathermap with ajax
