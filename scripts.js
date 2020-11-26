@@ -12,10 +12,12 @@ var cityName;
 
 // Current date
 var todayDate = moment().format("L");
+
+
+
 var searchedCitiesArray = []; //put all searched cities into this array
 
-getFromLocalstorage();
-
+renderSearchedCities();
 
 // Click Event.
 searchBtnEl.on("click", function () {
@@ -24,15 +26,24 @@ searchBtnEl.on("click", function () {
     // Pushing searched Cities into `searchedCitiesArray`
     searchedCitiesArray.push(cityName);
     saveToLocalstorage(searchedCitiesArray); // call the `searchedCitiesArray` to function saveToLocalstorage
-    renderSearchedCities();
+    // renderSearchedCities();
     makeWeatherRequest(cityName);
 })
 
 //render cities
-function renderSearchedCities(storedCity){
-    for (var i=0; i < storedCity.length; i++){
-        var listCities = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").text(storedCity[i]);
-        $("#searchedCities").append(listCities);
+function renderSearchedCities() {
+    var storedCity = JSON.parse(localStorage.getItem("searchedCity"));
+
+    // console.log(storedCity);
+    // searchedCitiesArray.push(storedCity);
+
+    if (storedCity) {
+        searchedCitiesArray = storedCity;
+        for (var i = 0; i < storedCity.length; i++) {
+
+            var listCities = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").text(storedCity[i]);
+            $("#searchedCities").append(listCities);
+        }
     }
 }
 
@@ -42,11 +53,10 @@ function saveToLocalstorage(searchedCitiesArray) {
 }
 
 // Get city from localStorage
-function getFromLocalstorage() {
-    var storedCity = JSON.parse(localStorage.getItem("searchedCity"));
-    // console.log(storedCity);
-    renderSearchedCities(storedCity);
-}
+// function getFromLocalstorage() {
+//     console.log(storedCity);
+// renderSearchedCities(storedCity);
+// }
 
 
 
