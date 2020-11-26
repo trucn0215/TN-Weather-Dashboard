@@ -23,7 +23,7 @@ searchBtnEl.on("click", function () {
     cityName = citySearchEl.val().toLowerCase(); //Getting value from the input
 
     if (!storedCity.includes(cityName)) {
-        var listCitiesBtn = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").attr("data-city", cityName).text(cityName);
+        var listCitiesBtn = $("<button>").addClass("btn text-left border border-danger rounded").attr("data-city", storedCity).text(cityName);
         $("#searchedCities").prepend(listCitiesBtn);
         storedCity.push(cityName); // Pushing searched Cities into `searchedCitiesArray`
         saveToLocalstorage(storedCity); // call the `searchedCitiesArray` to function saveToLocalstorage
@@ -42,16 +42,17 @@ function renderSearchedCities(storedCity) {
     if (storedCity) {
 
         for (var i = 0; i < storedCity.length; i++) {
-            var listCitiesBtn = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").attr("data-city",cityName).text(storedCity[i]);
+            var listCitiesBtn = $("<button>").addClass("btn text-left border border-danger rounded").attr("data-city",storedCity[i]).text(storedCity[i]);
             $("#searchedCities").prepend(listCitiesBtn);
         }
     }
 }
 
-
-
 // Click one of the city in the listed searched previously to show weather.
-
+$("#savedCity").on("click", "button", function(){
+    var citySearched = $(this).data("city");
+    makeWeatherRequest(citySearched);
+})
 
 // GET data from Openweathermap with ajax
 function makeWeatherRequest(cityName) {
