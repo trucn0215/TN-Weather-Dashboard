@@ -13,39 +13,42 @@ var cityName;
 // Current date
 var todayDate = moment().format("L");
 
-var searchedCitiesArray = []; //put all searched cities into this array
+// var searchedCitiesArray = []; //put all searched cities into this array
 
-renderSearchedCities();
+var storedCity = JSON.parse(localStorage.getItem("searchedCity"))||[];
+renderSearchedCities(storedCity);
 
 // Click Event.
 searchBtnEl.on("click", function () {
     cityName = citySearchEl.val().toLowerCase(); //Getting value from the input
 
-    // Pushing searched Cities into `searchedCitiesArray`
-    searchedCitiesArray.push(cityName);
-    saveToLocalstorage(searchedCitiesArray); // call the `searchedCitiesArray` to function saveToLocalstorage
+    if (!storedCity.includes(cityName)) {
+        var listCitiesBtn = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").attr("data-city", cityName).text(cityName);
+        $("#searchedCities").prepend(listCitiesBtn);
+        storedCity.push(cityName); // Pushing searched Cities into `searchedCitiesArray`
+        saveToLocalstorage(storedCity); // call the `searchedCitiesArray` to function saveToLocalstorage
+    }
+
     makeWeatherRequest(cityName); // Call this function to show the weather data after click search btn.
-    renderSearchedCities(); //Call this function to create button city list after click
 })
 
+// Save to localStorage
+function saveToLocalstorage(storedCity) {
+    localStorage.setItem("searchedCity", JSON.stringify(storedCity));
+}
 //render cities
-function renderSearchedCities() {
-    var storedCity = JSON.parse(localStorage.getItem("searchedCity"));
+function renderSearchedCities(storedCity) {
 
     if (storedCity) {
-        searchedCitiesArray = storedCity;
 
         for (var i = 0; i < storedCity.length; i++) {
-            var listCities = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").text(storedCity[i]);
-            $("#searchedCities").prepend(listCities);
+            var listCitiesBtn = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").attr("data-city",cityName).text(storedCity[i]);
+            $("#searchedCities").prepend(listCitiesBtn);
         }
     }
 }
 
-// Save to localStorage
-function saveToLocalstorage(searchedCitiesArray) {
-    localStorage.setItem("searchedCity", JSON.stringify(searchedCitiesArray));
-}
+
 
 // Click one of the city in the listed searched previously to show weather.
 
@@ -114,18 +117,18 @@ function forecastWeather(latValue, lonValue) {
         for (var i = 1; i < 6; i++) {
 
             // Getting the date for each day forecast
-            $("#date" + [i]).text(moment.unix(fiveDay.daily[i - 1].dt).format("L"));
+            $("#date" + [i]).text(moment.unix(fiveDay.daily[i].dt).format("L"));
 
             // Getting the icon for each date forecast and display
-            $("#imgDate" + [i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i - 1].weather[0].icon + ".png").addClass("bg-primary rounded");
+            $("#imgDate" + [i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i].weather[0].icon + ".png").addClass("bg-primary rounded");
 
             // Getting the TEMP for each date and display
-            var maxTemp = fiveDay.daily[i - 1].temp.max;
-            var minTemp = fiveDay.daily[i - 1].temp.min;
+            var maxTemp = fiveDay.daily[i].temp.max;
+            var minTemp = fiveDay.daily[i].temp.min;
             $("#tempDate" + [i]).text(("Temp: ") + ((((maxTemp + minTemp) / 2) - 273.15) * 1.8 + 32).toFixed(1));
 
             // Getting the Humidity for each date and display
-            $("#humidityDate" + [i]).text("Humidity: " + fiveDay.daily[i - 1].humidity);
+            $("#humidityDate" + [i]).text("Humidity: " + fiveDay.daily[i].humidity);
         }
     })
 }
