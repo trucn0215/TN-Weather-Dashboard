@@ -22,13 +22,15 @@ renderSearchedCities(storedCity);
 searchBtnEl.on("click", function () {
     cityName = citySearchEl.val().toLowerCase(); //Getting value from the input
 
+    // remove hidden class to show the weather data
+    $(".hidden").removeClass("hidden");
+
     if (!storedCity.includes(cityName)) {
         var listCitiesBtn = $("<button>").addClass("btn text-left border border-danger rounded").attr("data-city", storedCity).text(cityName);
         $("#searchedCities").prepend(listCitiesBtn);
         storedCity.push(cityName); // Pushing searched Cities into `searchedCitiesArray`
         saveToLocalstorage(storedCity); // call the `searchedCitiesArray` to function saveToLocalstorage
     }
-
     makeWeatherRequest(cityName); // Call this function to show the weather data after click search btn.
 })
 
@@ -51,6 +53,7 @@ function renderSearchedCities(storedCity) {
 // Click one of the city in the listed searched previously to show weather.
 $("#savedCity").on("click", "button", function(){
     var citySearched = $(this).data("city");
+    $(".hidden").removeClass("hidden");
     makeWeatherRequest(citySearched);
 })
 
