@@ -24,8 +24,8 @@ searchBtnEl.on("click", function () {
     // Pushing searched Cities into `searchedCitiesArray`
     searchedCitiesArray.push(cityName);
     saveToLocalstorage(searchedCitiesArray); // call the `searchedCitiesArray` to function saveToLocalstorage
-    makeWeatherRequest(cityName);
-    renderSearchedCities();
+    makeWeatherRequest(cityName); // Call this function to show the weather data after click search btn.
+    renderSearchedCities(); //Call this function to create button city list after click
 })
 
 //render cities
@@ -34,9 +34,10 @@ function renderSearchedCities() {
 
     if (storedCity) {
         searchedCitiesArray = storedCity;
+
         for (var i = 0; i < storedCity.length; i++) {
             var listCities = $("<button>").addClass("btn text-left border border-danger rounded").attr("id", "cityBtn").text(storedCity[i]);
-            $("#searchedCities").append(listCities);
+            $("#searchedCities").prepend(listCities);
         }
     }
 }
@@ -46,16 +47,7 @@ function saveToLocalstorage(searchedCitiesArray) {
     localStorage.setItem("searchedCity", JSON.stringify(searchedCitiesArray));
 }
 
-// Get city from localStorage
-// function getFromLocalstorage() {
-//     console.log(storedCity);
-// renderSearchedCities(storedCity);
-// }
-
-
-
-
-
+// Click one of the city in the listed searched previously to show weather.
 
 
 // GET data from Openweathermap with ajax
@@ -66,7 +58,7 @@ function makeWeatherRequest(cityName) {
         url: queryUrl,
         method: "GET"
     }).then(function (response) {
-        // console.log(response);
+
         currentWeather(response);
     })
 }
@@ -137,5 +129,3 @@ function forecastWeather(latValue, lonValue) {
         }
     })
 }
-
-// 
