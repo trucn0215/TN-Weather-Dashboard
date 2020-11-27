@@ -32,4 +32,4 @@ THEN I am presented with the last searched city forecast
 
 ## Screenshoot
 ![](img/appStart.png)  
-![](img/citysearched.png)
+![](img/citySearched.png)
