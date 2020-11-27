@@ -72,7 +72,7 @@ $("#savedCity").on("click", "button", function(){
 // GET data from Openweathermap with ajax
 function makeWeatherRequest(cityName) {
     // Get weather values
-    var queryUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
+    var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
     $.ajax({
         url: queryUrl,
         method: "GET"
@@ -85,7 +85,7 @@ function makeWeatherRequest(cityName) {
 // Function to display the TODAY data-time  weather
 function currentWeather(response) {
     var cityValue = response.name;
-    var iconValue = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png").addClass("bg-primary rounded");
+    var iconValue = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png").addClass("bg-primary rounded");
     var tempValue = (response.main.temp - 273.15) * 1.8 + 32;
     var humidityValue = response.main.humidity;
     var windSpeedValue = response.wind.speed;
@@ -109,7 +109,7 @@ function currentWeather(response) {
 // Function to display UV Index
 function uvIndexWeather(latValue, lonValue) {
     // Get UV INDEX value from ajax
-    var uvIndexQueryUrl = "http://api.openweathermap.org/data/2.5/uvi?lat=" + latValue + "&lon=" + lonValue + "&appid=" + apiKey;
+    var uvIndexQueryUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latValue + "&lon=" + lonValue + "&appid=" + apiKey;
     $.ajax({
         url: uvIndexQueryUrl,
         method: "GET"
@@ -121,7 +121,7 @@ function uvIndexWeather(latValue, lonValue) {
 // Forecast Function
 function forecastWeather(latValue, lonValue) {
     // 5-day Forecast
-    var fiveDayForcastQueryUrl = "http://api.openweathermap.org/data/2.5/onecall?lat=" + latValue + "&lon=" + lonValue + "&exclude=minutely,hourly&appid=" + apiKey;
+    var fiveDayForcastQueryUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latValue + "&lon=" + lonValue + "&exclude=minutely,hourly&appid=" + apiKey;
     $.ajax({
         url: fiveDayForcastQueryUrl,
         method: "GET"
@@ -136,7 +136,7 @@ function forecastWeather(latValue, lonValue) {
             $("#date" + [i]).text(moment.unix(fiveDay.daily[i].dt).format("L"));
 
             // Getting the icon for each date forecast and display
-            $("#imgDate" + [i]).attr("src", "http://openweathermap.org/img/wn/" + fiveDay.daily[i].weather[0].icon + ".png").addClass("bg-primary rounded");
+            $("#imgDate" + [i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i].weather[0].icon + ".png").addClass("bg-primary rounded");
 
             // Getting the TEMP for each date and display
             var maxTemp = fiveDay.daily[i].temp.max;

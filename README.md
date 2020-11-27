@@ -27,7 +27,9 @@ THEN I am presented with the last searched city forecast
 ```
 
 ## Link
-[Repo Link](https://github.com/trucn0215/TN-Weather-Dashboard)  
+[Repo Link](http://github.com/trucn0215/TN-Weather-Dashboard)  
 [Deployed Link](https://trucn0215.github.io/TN-Weather-Dashboard/)
 
 ## Screenshoot
+![](img/appStart.png)
+![](img/citysearched.png)
