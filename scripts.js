@@ -85,7 +85,7 @@ function makeWeatherRequest(cityName) {
 // Function to display the TODAY data-time  weather
 function currentWeather(response) {
     var cityValue = response.name;
-    var iconValue = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png").addClass("bg-primary rounded");
+    var iconValue = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png").addClass("bg-primary rounded");
     var tempValue = (response.main.temp - 273.15) * 1.8 + 32;
     var humidityValue = response.main.humidity;
     var windSpeedValue = response.wind.speed;
@@ -136,7 +136,7 @@ function forecastWeather(latValue, lonValue) {
             $("#date" + [i]).text(moment.unix(fiveDay.daily[i].dt).format("L"));
 
             // Getting the icon for each date forecast and display
-            $("#imgDate" + [i]).attr("src", "https://openweathermap.org/img/wn/" + fiveDay.daily[i].weather[0].icon + ".png").addClass("bg-primary rounded");
+            $("#imgDate" + [i]).attr("src", "http://openweathermap.org/img/wn/" + fiveDay.daily[i].weather[0].icon + ".png").addClass("bg-primary rounded");
 
             // Getting the TEMP for each date and display
             var maxTemp = fiveDay.daily[i].temp.max;
