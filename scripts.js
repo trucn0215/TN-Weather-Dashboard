@@ -13,8 +13,6 @@ var cityName;
 // Current date
 var todayDate = moment().format("L");
 
-// var searchedCitiesArray = []; //put all searched cities into this array
-
 var storedCity = JSON.parse(localStorage.getItem("searchedCity"))||[];
 renderSearchedCities(storedCity);
 
