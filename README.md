@@ -31,5 +31,5 @@ THEN I am presented with the last searched city forecast
 [Deployed Link](https://trucn0215.github.io/TN-Weather-Dashboard/)
 
 ## Screenshoot
-![](img/appStart.png)
+![](img/appStart.png)  
 ![](img/citysearched.png)
